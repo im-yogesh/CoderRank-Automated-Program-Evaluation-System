@@ -1,0 +1,122 @@
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@500&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Baloo+Tammudu+2:wght@500;600&display=swap');
+* {
+    margin: 0;
+    padding: 0;
+    overflow: hidden;
+}
+
+body {
+    background-image: linear-gradient(to bottom, #fff 0%, #f3f7f7 100%);
+    height: 100vh;
+}
+
+/* NAVBAR */
+
+.navbar {
+    background-color: transparent !important;
+}
+
+.navbar-brand>span {
+    font-family: 'Playfair Display', serif;
+    letter-spacing: 1.2px;
+}
+
+.activated {
+    color: white !important;
+    background-color: #2A81EA !important;
+}
+
+.not-activated {
+    color: #2A81EA !important;
+}
+
+.navbar .navbar-collapse button {
+    border-color: #2A81EA !important;
+}
+
+.navbar .navbar-collapse button:hover {
+    background-color: #2A81EA !important;
+    border: 1px solid #2A81EA !important;
+    color: white !important;
+}
+
+.navbar-toggler:hover {
+    border: 1px solid #2A81EA !important;
+}
+
+.navbar button:focus {
+    outline: none;
+    box-shadow: none;
+}
+
+/* LOGIN SECTION */
+
+#main-section {
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
+.logo {
+    color: red;
+    letter-spacing: 1.2px;
+    font-size: x-large;
+    font-weight: bold !important;
+}
+
+.form-container {
+    overflow: auto;
+    background-color: white;
+    border-radius: 15px;
+    margin-top: 10px;
+    box-shadow: 0 8px 24px rgba(184, 215, 250, 1);
+}
+
+h2 {
+    font-family: 'Poppins', sans-serif;
+    padding: 20px;
+    text-align: center;
+    color: #2A81EA;
+    margin-bottom: 20px;
+}
+
+form {
+    font-family: 'Poppins', sans-serif;
+}
+
+form button {
+    background-color: #2A81EA !important;
+    outline: none !important;
+    box-shadow: none !important;
+}
+
+form button:hover {
+    background-color: #116ad7 !important;
+}
+
+input {
+    outline: none !important;
+    box-shadow: none !important;
+}
+
+.navbar-toggler {
+    border: none;
+}
+
+@media only screen and (max-width: 768px) {
+    .d-flex #login {
+        margin-bottom: 5px;
+    }
+    .d-flex #signup {
+        margin-bottom: 5px;
+    }
+    .navbar-collapse .d-flex {
+        flex-direction: column;
+    }
+    .navbar-brand {
+        padding-left: 20px;
+    }
+}

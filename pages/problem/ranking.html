@@ -1,0 +1,169 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <!-- Bootstrap CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet"
+        integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
+
+    <!-- Font Awesome CDN -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css"
+        integrity="sha512-iBBXm8fW90+nuLcSKlbmrPcLa0OT92xO1BIsZ+ywDWZCvqsWgccV3gFoRBv0z+8dLJgyAHIhR35VZc2oM/gI1w=="
+        crossorigin="anonymous" referrerpolicy="no-referrer" />
+
+    <!-- Custom CSS -->
+    <link rel="stylesheet" href="css/style.css">
+
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"
+        integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4=" crossorigin="anonymous"></script>
+
+    <title>CoderRank - Rankings</title>
+</head>
+<style></style>
+
+<body>
+    <nav class="navbar navbar-expand-lg sticky-top pb-0">
+        <div class="container">
+            <a class="navbar-brand" href="/">
+                <i class="fas fa-terminal pe-3 text-white"></i>
+                <span class="text-white">Coder Rank</span>
+            </a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse"
+                data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false"
+                aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"><i class="fas fa-bars pt-1 text-white"></i></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarSupportedContent">
+                <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+                    <li class="nav-item ms-3">
+                        <a class="nav-link " aria-current="page" href="index.html">Home</a>
+                    </li>
+                    <li class="nav-item ms-3">
+                        <a class="nav-link active" aria-current="page" href="ranking.html">Ranking</a>
+                    </li>
+                    <li class="nav-item ms-3">
+                        <a class="nav-link" aria-current="page" href="submissions.html">Submissions</a>
+                    </li>
+                </ul>
+                <div class="nav-item dropdown d-flex align-items-center">
+                    <i class="fas fa-user-alt text-white"></i>
+                    <a class="nav-link dropdown-toggle text-white" href="#" id="navbarDropdown" role="button"
+                        data-bs-toggle="dropdown" aria-expanded="false">
+
+                    </a>
+                    <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
+                        <li><a class="dropdown-item" onclick="logout()" id="logout">Logout</a></li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </nav>
+    <div class="ranking-table-container m-5">
+
+
+
+        <table class="table table-bordered">
+            <thead>
+                <tr class="table-primary" id="tableRow">
+                    <th scope="col">#</th>
+                    <th scope="col" id="uname">Username</th>
+
+                    <th scope="col">Solved</th>
+                    <th scope="col">Points</th>
+                </tr>
+            </thead>
+            <tbody>
+
+            </tbody>
+        </table>
+
+    </div>
+
+    <!-- Bootstrap Bundle with Popper -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js"
+        integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM"
+        crossorigin="anonymous"></script>
+    <script>
+        function logout() {
+            localStorage.clear()
+            window.location.href = '/logout';
+        }
+        // let currentActiveLink = document.getElementsByClassName('active')
+        document.getElementById('navbarDropdown').innerHTML = localStorage.getItem('username');
+        const contestName = localStorage.getItem('contestname');
+        const logintoken = localStorage.getItem('token');
+
+
+        async function getRanking(problems) {
+
+            const result = await fetch(`/getRank/${contestName}/${logintoken}`).then((res) => res.json())
+
+            if (result.status == 'ok') {
+
+
+                var problemTdElement = []
+
+                for (let index = 0; index < problems.length; index++) {
+                    const element = problems[index];
+                    $('#uname').after(`<th scope="col">${element.name}</th>`)
+                    var name = element.name
+                    problemTdElement.push({ name: '<td id="${element.name}"></td>', key: element.name })
+                }
+
+
+                for (let index = 0; index < result.data.length; index++) {
+                    const element = result.data[index];
+
+                    $('tbody').append(`<tr class="table-light">
+                    <td>${index + 1}</th>
+                    <td>${element.team}</td>
+                    ${makeTd(element)}
+                    <td>${element.solved}</td>
+                    <td>${element.points}</td>
+
+                </tr>`)
+
+                }
+
+                function makeTd(ele) {
+
+                    var newTd = ''
+                    for (let index = 0; index < problemTdElement.length; index++) {
+                        const element = problemTdElement[index];
+                        var pName = element.key
+
+                        newTd = newTd + `<td id="${pName}">${ele[pName]}</td>`
+
+                    }
+                    return newTd
+                }
+            } else {
+                alert('Something went wrong !')
+            }
+
+
+        }
+
+        listProblems()
+        async function listProblems() {
+
+            const result = await fetch(`/listProblems/${contestName}/${logintoken}`).then((res) => res.json())
+
+            if (result.status == 'ok') {
+
+                getRanking(result.problems)
+
+            } else {
+                alert('Something went wrong !')
+            }
+
+
+        }
+    </script>
+</body>
+
+</html>

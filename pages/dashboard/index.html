@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <!-- Bootstrap CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.1/dist/css/bootstrap.min.css" rel="stylesheet"
+        integrity="sha384-+0n0xVW2eSR5OomGNYDnhzAbDsOXxcvSN1TPprVMTNDbiYZCxYbOOl7+AMvyTG2x" crossorigin="anonymous">
+
+    <!-- Font Awesome CDN -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css"
+        integrity="sha512-iBBXm8fW90+nuLcSKlbmrPcLa0OT92xO1BIsZ+ywDWZCvqsWgccV3gFoRBv0z+8dLJgyAHIhR35VZc2oM/gI1w=="
+        crossorigin="anonymous" referrerpolicy="no-referrer" />
+
+    <!-- Custom CSS -->
+    <link rel="stylesheet" href="style.css">
+    <title>CoderRank - Dashboard</title>
+</head>
+
+<body>
+
+    <!-- ############################ NAVBAR STARTS ############################ -->
+    <nav class="navbar navbar-expand-lg sticky-top pb-0">
+        <div class="container">
+            <a class="navbar-brand" href="/">
+                <i class="fas fa-terminal pe-3 text-white"></i>
+                <span class="text-white">Coder Rank</span>
+            </a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse"
+                data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false"
+                aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"><i class="fas fa-bars pt-1 text-white"></i></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarSupportedContent">
+                <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+                    <li class="nav-item ms-3">
+                        <a class="nav-link active ps-2" aria-current="page" href="#!">Contests</a>
+                    </li>
+                </ul>
+                <div class="nav-item dropdown d-flex align-items-center">
+                    <i class="fas fa-user-alt text-white"></i>
+                    <a class="nav-link dropdown-toggle text-white" href="#" id="navbarDropdown" role="button"
+                        data-bs-toggle="dropdown" aria-expanded="false">
+                        ~
+                    </a>
+                    <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
+                        <li><a class="dropdown-item" onclick="logout()" id="logoutBtn">Logout</a></li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </nav>
+    <!-- ############################# NAVBAR ENDS ############################# -->
+
+    <!-- ############################# DASHBOARD TITLE SECTION STARTS ############ -->
+    <section class="container-fluid bg-white" id="dashboard-title-area">
+        <div class="container d-flex align-items-center py-4 text-body">
+            <span>Dashboard </span><span><i class="fas fa-star px-2"></i></span>
+        </div>
+    </section>
+    <!-- ############################# DASHBOARD TITLE SECTION ENDS ############## -->
+
+    <!-- ############################# CARD SECTION STARTS ###################### -->
+    <section class="cards-container container-fluid py-5">
+        <div class="container d-flex justify-content-evenly flex-wrap">
+            <!-- <div class="contest-card rounded-1 p-5 d-flex flex-column my-3">
+                <span class="text-body title">Sum of Integers <i class="fas fa-star px-2"></i></span>
+                <span class="detail text-success mt-2">Easy</span>
+                <button type="button" class="btn rounded-1 ms-0 ps-0 mt-5" id="submit-code">Solve Challenge</button>
+            </div> -->
+            <div class="d-flex align-items-center">
+                <div class="spinner-border text-primary" role="status">
+                    <span class="visually-hidden">Loading...</span>
+
+                </div>
+                <div class="spinner-text">
+                    <span class="px-3 text-body" style="letter-spacing: 1.2px;"><b>Loading...</b></span>
+                </div>
+            </div>
+
+
+        </div>
+
+    </section>
+    <!-- ############################# CARD SECTION STARTS ###################### -->
+
+    <!-- Bootstrap JS -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.1/dist/js/bootstrap.bundle.min.js"
+        integrity="sha384-gtEjrD/SeCtmISkJkNUaaKMoLD0//ElJ19smozuHV6z3Iehds+3Ulb9Bn9Plx0x4"
+        crossorigin="anonymous"></script>
+
+    <!-- jQuery -->
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"
+        integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4=" crossorigin="anonymous"></script>
+
+    <!-- Custom Js -->
+    <script>
+        document.getElementById('navbarDropdown').innerHTML = localStorage.getItem('username');
+    </script>
+    <script src="index.js"></script>
+</body>
+
+</html>

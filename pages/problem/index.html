@@ -1,0 +1,200 @@
+<!doctype html>
+<html lang="en">
+
+<head>
+    <!-- Required meta tags -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <!-- Bootstrap CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet"
+        integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
+
+    <!-- Font Awesome CDN -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css"
+        integrity="sha512-iBBXm8fW90+nuLcSKlbmrPcLa0OT92xO1BIsZ+ywDWZCvqsWgccV3gFoRBv0z+8dLJgyAHIhR35VZc2oM/gI1w=="
+        crossorigin="anonymous" referrerpolicy="no-referrer" />
+
+    <!-- Custom CSS -->
+    <link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" href="css/popup.css">
+
+    <title>Coder Rank</title>
+</head>
+<!-- container-sm container-md container-lg container-xl container-xxl -->
+
+<body>
+
+    <!-- ############################ NAVBAR STARTS ############################ -->
+    <nav class="navbar navbar-expand-lg sticky-top pb-0">
+        <div class="container">
+            <a class="navbar-brand" href="/">
+                <i class="fas fa-terminal pe-3 text-white"></i>
+                <span class="text-white">Coder Rank</span>
+            </a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse"
+                data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false"
+                aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"><i class="fas fa-bars pt-1 text-white"></i></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarSupportedContent">
+                <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+                    <li class="nav-item ms-3">
+                        <a class="nav-link active" aria-current="page" href="index.html">Home</a>
+                    </li>
+                    <li class="nav-item ms-3">
+                        <a class="nav-link" aria-current="page" href="ranking.html">Ranking</a>
+                    </li>
+
+                    <li class="nav-item ms-3">
+                        <a class="nav-link" aria-current="page" href="submissions.html">Submissions</a>
+                    </li>
+                </ul>
+                <div class="nav-item dropdown d-flex align-items-center">
+                    <i class="fas fa-user-alt text-white"></i>
+                    <a class="nav-link dropdown-toggle text-white" href="#" id="navbarDropdown" role="button"
+                        data-bs-toggle="dropdown" aria-expanded="false">
+
+                    </a>
+                    <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
+                        <li><a class="dropdown-item" onclick="logout()" id="logout">Logout</a></li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </nav>
+    <!-- ############################# NAVBAR ENDS ############################# -->
+
+    <!-- ############################# CONTEST TITLE SECTION STARTS ############ -->
+    <section class="container-fluid" id="problem-title-area">
+        <div class="container d-flex align-items-center py-4 text-body">
+            <span>Simple Array Sum </span><span><i class="fas fa-star px-2"></i></span>
+        </div>
+    </section>
+    <!-- ############################# CONTEST TITLE SECTION ENDS ############## -->
+
+    <!-- ############################# PROBLEM STATEMENT SECTION STARTS ######## -->
+    <section class="container-fluid bg-light" id="problem-statement-area">
+        <div class="container pt-4 ps-0 mb-0 d-flex" id="problems">
+
+        </div>
+        <div class="container pt-4 ps-0 mb-0 mt-0" id="problem">
+            <h5 class="p-3 pt-3 shadow">Problem</h5>
+
+        </div>
+        <!-- Problem Statement -->
+    </section>
+    <!-- ############################# PROBLEM STATEMENT SECTION ENDS ########## -->
+
+    <!-- ############################# CODE EDITOR SECTION STARTS ############## -->
+    <section class="container-fluid bg-light pt-5" id="code-editing-area">
+        <div class="container">
+            <div class="row justify-content-between">
+                <div class="shadow px-0 col-lg-8 align-self-start">
+                    <div class="languages bg-light d-flex justify-content-end align-items-center p-3">
+                        <h6 class="px-4 mb-0">Languages</h6>
+                        <select id="language-selector">
+                            <!-- Language Options -->
+                        </select>
+                    </div>
+
+                    <textarea class="code-area bg-white p-4 overflow-auto border-0 outline-none"
+                        style="height: 500px; width: 100%;">
+                        <!-- Code Area -->
+                    </textarea>
+                    <div class="blank-container bg-light d-flex justify-content-end py-2 px-4">
+                        Filename: &nbsp;<span contenteditable="true" spellcheck="false">untitled</span><span>.cpp</span>
+                    </div>
+                </div>
+                <div class="code-utilities col-lg-3 align-self-start pe-0 ms-auto">
+
+                    <div class="upload-code form-check ps-0 py-3">
+                        <i class="fas fa-upload text-black-45 pe-2"></i>
+                        <input class="form-check-input" type="file" id="upload-btn" name="filename" hidden>
+                        <label class="form-check-label text-body" for="upload-btn">
+                            Upload Code File
+                        </label>
+                    </div>
+
+                    <div class="custom-input form-check py-2">
+                        <input class="form-check-input pointer" type="checkbox" id="custom-input-checkbox">
+                        <label class="form-check-label pointer" for="custom-input-checkbox">
+                            Test against custom input
+                        </label>
+                    </div>
+
+                    <div class="input-text-area">
+                        <textarea class="mt-3 border-primary shadow" id="custom-input-text-area" cols="20" rows="5"
+                            hidden></textarea>
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="status col-4 align-self-center" style="visibility: hidden;">
+                    <div class="spinner-border spinner-border-sm" role="status"></div>
+                    <strong>Loading...</strong>
+                </div>
+                <div class="col-4 pe-0 py-2">
+                    <div class="ms-auto py-1" style="width: fit-content;">
+                        <button type="button" class="btn btn-light rounded-0 me-1 popup" id="run-code">Run
+                            Code<span class="popuptext" id="myPopup">Enter Code</span></button>
+                        <button type="button" class="btn rounded-0 ms-1 popup" id="submit-code">Submit
+                            Code<span class="popuptext" id="myPopup1">Enter Code</span></button>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+    </section>
+    <!-- ############################# CODE EDITOR SECTION ENDS ################ -->
+
+    <!-- ############################# OUTPUT SECTION STARTS ################ -->
+    <section class="container-fluid bg-light pt-5" id="output-section">
+        <div class="container">
+            <div class="row justify-content-between">
+                <div class="px-0 col-lg-8 align-self-start">
+                    <div class="success-error-label px-1">
+                        <!-- Compile Title -->
+                    </div>
+                    <div class="compile-message text-body py-1 px-1">
+                        <!-- Compile MSG -->
+                    </div>
+                    <div class="shadow main-box mx-1 mt-2 p-4 bg-white">
+                        <!-- Sample Test Case -->
+                        <!-- Compile Success -->
+                        <!-- Compile Error -->
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+    <!-- ############################# OUTPUT SECTION ENDS ################## -->
+
+    <!-- ############################# FOOTER STARTS ######################## -->
+    <section class="container-fluid bg-light pt-5" id="footer">
+
+    </section>
+    <!-- ############################# FOOTER ENDS ########################## -->
+
+    <!-- Bootstrap Bundle with Popper -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js"
+        integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM"
+        crossorigin="anonymous"></script>
+
+    <!-- Custom JS -->
+
+    <script>
+        function logout() {
+            localStorage.clear()
+            window.location.href = '/logout';
+        }
+
+        document.getElementById('navbarDropdown').innerHTML = localStorage.getItem('username');
+
+    </script>
+    <script src="js/style.js"></script>
+    <script src="js/index.js"></script>
+    <script src="js/evaluate.js"></script>
+</body>
+
+</html>

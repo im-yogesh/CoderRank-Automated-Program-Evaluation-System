@@ -1,0 +1,165 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <!-- Bootstrap CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.1/dist/css/bootstrap.min.css" rel="stylesheet"
+        integrity="sha384-+0n0xVW2eSR5OomGNYDnhzAbDsOXxcvSN1TPprVMTNDbiYZCxYbOOl7+AMvyTG2x" crossorigin="anonymous">
+
+    <!-- Font Awesome CDN -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css"
+        integrity="sha512-iBBXm8fW90+nuLcSKlbmrPcLa0OT92xO1BIsZ+ywDWZCvqsWgccV3gFoRBv0z+8dLJgyAHIhR35VZc2oM/gI1w=="
+        crossorigin="anonymous" referrerpolicy="no-referrer" />
+
+    <!-- Custom CSS -->
+    <link rel="stylesheet" href="style.css">
+    <title>CoderRank - Register & Login</title>
+</head>
+
+<body>
+
+    <script>
+        isLoggedIn();
+
+        async function isLoggedIn() {
+            const result = await fetch('/verify').then((res) => res.json())
+
+            if (result.status == 'ok') {
+                window.location.href = '/dashboard';
+            }
+        }
+    </script>
+
+    <!-- Navbar -->
+    <nav class="navbar navbar-expand-lg navbar-light sticky-top pt-3">
+        <div class="container">
+            <a class="navbar-brand" href="/">
+                <i class="fas fa-terminal pe-3 text-body"></i>
+                <span class="text-body">Coder Rank</span>
+            </a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse"
+                data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false"
+                aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarSupportedContent">
+                <div class="navbar-nav me-auto mb-2 mb-lg-0"></div>
+                <div class="d-flex">
+                    <button class="btn btn-outline-success mx-2 activated" id="login">Sign In</button>
+                    <button class="btn btn-outline-success mx-2 not-activated" id="signup">Sign Up</button>
+                </div>
+            </div>
+        </div>
+    </nav>
+
+    <section class="container-fluid pb-5 pt-5" id="main-section">
+        <div class="logo p-3">
+            <i class="fas fa-terminal pe-2"></i>
+            <span class="">Coder Rank</span>
+        </div>
+        <div class="form-container px-5 py-5 m-sm-5">
+            <h2>Sign In</h2>
+
+            <form>
+
+                <div class="mb-3">
+                    <label class="form-label">Username <span class="text-danger">*</span></label>
+                    <input type="text" autocomplete="off" class="form-control" id="username">
+                    <div class="form-text">We'll never share your details with anyone else.</div>
+                </div>
+
+                <div class="mb-3">
+                    <label class="form-label">Enter Password <span class="text-danger">*</span></label>
+                    <input type="password" autocomplete="off" class="form-control" id="password">
+                </div>
+
+                <button type="submit" class="btn btn-primary" id="main-sign-in-btn" onclick="login()">Sign In</button>
+            </form>
+        </div>
+
+    </section>
+
+    <!-- Bootstrap JS -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.1/dist/js/bootstrap.bundle.min.js"
+        integrity="sha384-gtEjrD/SeCtmISkJkNUaaKMoLD0//ElJ19smozuHV6z3Iehds+3Ulb9Bn9Plx0x4"
+        crossorigin="anonymous"></script>
+    <!-- jQuery -->
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"
+        integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4=" crossorigin="anonymous"></script>
+
+    <!-- Custom JS -->
+    <script src="index.js"></script>
+
+    <script>
+        // For Login
+        async function login() {
+            event.preventDefault()
+            const username = document.getElementById('username').value
+            const password = document.getElementById('password').value
+
+            const result = await fetch('/api/login', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify({
+                    username,
+                    password
+                })
+            }).then((res) => res.json())
+
+            if (result.status == 'ok') {
+
+                // alert('Successfully logged in');
+                $('form').trigger("reset");
+                localStorage.setItem('username', result.username)
+                window.location.href = "/dashboard";
+
+            } else {
+                alert(result.error);
+                $('form').trigger("reset");
+            }
+        }
+
+        //For Register
+        async function registerUser() {
+            event.preventDefault()
+            const username = document.getElementById('username').value
+            const password = document.getElementById('password').value
+
+            const result = await fetch('/api/register', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify({
+                    username,
+                    password
+                })
+            }).then((res) => res.json())
+
+            if (result.status == 'ok') {
+                // everythign went fine
+                // alert('Successfully register');
+                $('.form-container>h2').after(`<div class="alert d-flex justify-content-center alert-success" role="alert">
+                    Successfully register!!
+                    </div>`);
+                $('form').trigger("reset");
+
+                setTimeout(() => {
+                    $('.alert').remove();
+                }, 2000);
+
+            } else {
+                alert(result.error);
+                $('form').trigger("reset");
+            }
+        }
+
+    </script>
+</body>
+
+</html>
